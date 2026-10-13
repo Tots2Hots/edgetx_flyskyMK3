@@ -44,26 +44,26 @@ static void _aux_pwr(gpio_t pin, uint8_t on)
 }
 #endif
 
-#if defined(AUX_SERIAL)
+#if defined(AUX_SERIAL) && !defined(FLYSKY_GIMBAL)
 
 #if !defined(AUX_SERIAL_DMA_TX)
-  #define AUX_SERIAL_DMA_TX                   nullptr
-  #define AUX_SERIAL_DMA_TX_STREAM            0
-  #define AUX_SERIAL_DMA_TX_CHANNEL           0
+#define AUX_SERIAL_DMA_TX        nullptr
+#define AUX_SERIAL_DMA_TX_STREAM 0
+#define AUX_SERIAL_DMA_TX_CHANNEL 0
 #endif
 
 static const stm32_usart_t auxUSART = {
-  .USARTx = AUX_SERIAL_USART,
-  .txGPIO = AUX_SERIAL_TX_GPIO,
-  .rxGPIO = AUX_SERIAL_RX_GPIO,
-  .IRQn = AUX_SERIAL_USART_IRQn,
-  .IRQ_Prio = 7, // TODO: define constant
-  .txDMA = AUX_SERIAL_DMA_TX,
-  .txDMA_Stream = AUX_SERIAL_DMA_TX_STREAM,
-  .txDMA_Channel = AUX_SERIAL_DMA_TX_CHANNEL,
-  .rxDMA = AUX_SERIAL_DMA_RX,
-  .rxDMA_Stream = AUX_SERIAL_DMA_RX_STREAM,
-  .rxDMA_Channel = AUX_SERIAL_DMA_RX_CHANNEL,
+    .USARTx = AUX_SERIAL_USART,
+    .txGPIO = AUX_SERIAL_TX_GPIO,
+    .rxGPIO = AUX_SERIAL_RX_GPIO,
+    .irqN = AUX_SERIAL_USART_IRQn,
+    .IRQ_Prio = 7, // TODO: define constant
+    .txDMA = AUX_SERIAL_DMA_TX,
+    .txDMA_Stream = AUX_SERIAL_DMA_TX_STREAM,
+    .txDMA_Channel = AUX_SERIAL_DMA_TX_CHANNEL,
+    .rxDMA = AUX_SERIAL_DMA_RX,
+    .rxDMA_Stream = AUX_SERIAL_DMA_RX_STREAM,
+    .rxDMA_Channel = AUX_SERIAL_DMA_RX_CHANNEL,
 };
 
 DEFINE_STM32_SERIAL_PORT(Aux, auxUSART, AUX_SERIAL_RX_BUFFER, AUX_SERIAL_TX_BUFFER);
@@ -71,7 +71,7 @@ DEFINE_STM32_SERIAL_PORT(Aux, auxUSART, AUX_SERIAL_RX_BUFFER, AUX_SERIAL_TX_BUFF
 #if defined(AUX_SERIAL_PWR_GPIO)
 void set_aux_pwr(uint8_t on)
 {
-  _aux_pwr(AUX_SERIAL_PWR_GPIO, on);
+    _aux_pwr(AUX_SERIAL_PWR_GPIO, on);
 }
 #define AUX_PWR_FCT set_aux_pwr
 #else
