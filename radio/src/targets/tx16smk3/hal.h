@@ -266,18 +266,30 @@ USART6: INTMODULE_USART
 #define EXTMODULE_TIMER_DMA_IRQHandler     DMA2_Stream6_IRQHandler
 
 // AUX ports
-#define AUX_SERIAL_TX_GPIO                  GPIO_PIN(GPIOB, 6) // PB.06
-#define AUX_SERIAL_RX_GPIO                  GPIO_PIN(GPIOB, 5) // PB.05
-#define AUX_SERIAL_USART                    UART5
-#define AUX_SERIAL_USART_IRQHandler         UART5_IRQHandler
-#define AUX_SERIAL_USART_IRQn               UART5_IRQn
-#define AUX_SERIAL_DMA_TX                   DMA2
-#define AUX_SERIAL_DMA_TX_STREAM            LL_DMA_STREAM_1
-#define AUX_SERIAL_DMA_TX_CHANNEL           LL_DMAMUX1_REQ_UART5_TX
-#define AUX_SERIAL_DMA_RX                   DMA2
-#define AUX_SERIAL_DMA_RX_STREAM            LL_DMA_STREAM_2
-#define AUX_SERIAL_DMA_RX_CHANNEL           LL_DMAMUX1_REQ_UART5_RX
-#define AUX_SERIAL_PWR_GPIO                 GPIO_PIN(GPIOB, 7) // PB.07
+#if defined(FLYSKY_GIMBAL)
+  // FlySky Hall Sticks take over UART5
+  #define FLYSKY_HALL_SERIAL_USART                 UART5
+  #define FLYSKY_HALL_SERIAL_USART_IRQn            UART5_IRQn
+  #define FLYSKY_HALL_SERIAL_TX_GPIO               GPIO_PIN(GPIOB, 6) // PB.06
+  #define FLYSKY_HALL_SERIAL_RX_GPIO               GPIO_PIN(GPIOB, 5) // PB.05
+  #define FLYSKY_HALL_SERIAL_DMA                   DMA2
+  #define FLYSKY_HALL_DMA_Stream_RX                LL_DMA_STREAM_2
+  #define FLYSKY_HALL_DMA_Stream_TX                LL_DMA_STREAM_1
+  #define FLYSKY_HALL_DMA_Channel                  LL_DMAMUX1_REQ_UART5_TX
+#else
+  #define AUX_SERIAL_TX_GPIO                  GPIO_PIN(GPIOB, 6) // PB.06
+  #define AUX_SERIAL_RX_GPIO                  GPIO_PIN(GPIOB, 5) // PB.05
+  #define AUX_SERIAL_USART                    UART5
+  #define AUX_SERIAL_USART_IRQHandler         UART5_IRQHandler
+  #define AUX_SERIAL_USART_IRQn               UART5_IRQn
+  #define AUX_SERIAL_DMA_TX                   DMA2
+  #define AUX_SERIAL_DMA_TX_STREAM            LL_DMA_STREAM_1
+  #define AUX_SERIAL_DMA_TX_CHANNEL           LL_DMAMUX1_REQ_UART5_TX
+  #define AUX_SERIAL_DMA_RX                   DMA2
+  #define AUX_SERIAL_DMA_RX_STREAM            LL_DMA_STREAM_2
+  #define AUX_SERIAL_DMA_RX_CHANNEL           LL_DMAMUX1_REQ_UART5_RX
+  #define AUX_SERIAL_PWR_GPIO                 GPIO_PIN(GPIOB, 7) // PB.07
+#endif
 
 #if defined(AUX2_SERIAL)
 #define AUX2_SERIAL_TX_GPIO                 GPIO_PIN(GPIOB, 10) // PB.10

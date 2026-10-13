@@ -33,6 +33,7 @@ set(FUNCTION_SWITCHES YES)
 set(FUNCTION_SWITCHES_RGB_LEDS YES)
 set(FLEXSW "2" CACHE STRING "Max flex inputs usable as switches")
 set(INTERNAL_GPS_BAUDRATE "9600" CACHE STRING "Baud rate for internal GPS")
+set(FLYSKY_GIMBAL ON)
 
 # BT and serial gimbal share same UART
 if(BLUETOOTH)
